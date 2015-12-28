@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.vapestore.vaperetailer.MainActivity">
+
+    <ProgressBar
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+
+    <com.vapestore.vaperetailer.infiniteindicator.InfiniteIndicatorLayout
+        android:id="@+id/vpSubProductSlider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <FrameLayout
+        android:id="@+id/fl_product"
+        android:layout_width="1150dp"
+        android:layout_height="600dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="0dp"
+        android:clickable="true">
+
+        <LinearLayout
+            android:id="@+id/ll_vaporizers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.75">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6.25"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.05"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_EGO_TWIST"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.35"
+
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.98"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_IPOW2MOD"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.6"
+
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.9"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.1"
+                    android:clickable="true"
+                    android:orientation="vertical"
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_IPOW2MOD40W"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="7"
+
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.65">
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_tank_koils"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.85"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.55"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_CR"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5.5"
+
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".8"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.25"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.55"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_SUBTANK_NANO"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5.5"
+
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".8"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2.7"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_EGO_ONE_CLOCC_COILS"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5.1"
+
+                    android:clickable="true"
+                    android:orientation="horizontal"></LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3.05"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_ORGANIC_COTTON_COILS"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5.1"
+
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_GENITANK_MEGA"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+
+                    android:clickable="true"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_eliquids"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.03">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.25"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3.85">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_PREMIUM_ELIUID"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4.1"
+
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".48">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.1"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3.55">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_DRIPPER_ELIQUID"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4.3"
+
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".49">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.63"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3.15">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_NAKED"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4.7"
+
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_deluxe_model"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="10">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.75"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.75">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_ISTICK_MOD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="6.2"
+
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".45">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.8"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.75">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_K_BOX_MOD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="6.2"
+
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".45">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.75"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.75">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_IPV_D2_MINI_MOD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="6.2"
+
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".45">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.75"
+                android:orientation="vertical"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.75">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_eGRIP_OLED_CLMOD_KIT"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="6.2"
+
+                    android:clickable="true"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:layout_width="70dp"
+        android:layout_height="110dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="315dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnleftArrow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/back"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="70dp"
+        android:layout_height="110dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="315dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnrightArrow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/next"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingTop="15dp">
+
+            <Button
+                android:id="@+id/btnSubProductBack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="25dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btnSubProductSendPhone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btnSubProductSendEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="45dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>

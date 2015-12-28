@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">VAPE RETAILER</string>
+    <string name="str_vaping">VAPING 101</string>
+    <string name="str_products">PRODUCTS</string>
+    <string name="str_promotions">PROMOTIONS</string>
+    <string name="str_back">&lt; BACK</string>
+    <string name="str_send_to_phone">SEND TO PHONE</string>
+    <string name="str_send_to_email">SEND TO EMAIL</string>
+    <string name="str_more">MORE &gt;</string>
+    <string name="str_compatibility_chart">COMPATIBILITY CHART</string>
+    <string name="str_email_address">Email Address</string>
+    <string name="str_password">Password:</string>
+    <string name="str_signin">Login</string>
+    <string name="str_username">Username:</string>
+<string name="str_sendToemail">To send this info to your email, enter address below:</string>
+    <string name="str_sendTophone">To send this info to your phone, enter number below:</string>
+    <string name="str_send">Send</string>
+    <string name="str_security">Security Settings</string>
+    <string name="str_give_me_password">Please give me your password</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="str_update">Update</string>
+    <string name="str_text_on">Security Activated</string>
+    <string name="str_text_off">Security Deactivated</string>
+    <string name="str_at_the">"@"</string>
+    <string name="str_submit">Submit</string>
+    <string name="str_security_active">Activate</string>
+    <string name="str_security_deactive">Deactivate</string>
+</resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:apps="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <ProgressBar android:visibility="gone"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+    <com.vapestore.vaperetailer.infiniteindicator.InfiniteIndicatorLayout
+        android:id="@+id/vpHomeSlider"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingTop="15dp">
+
+            <Button
+                android:id="@+id/btnPromtionsBack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="25dp"
+                android:background="@null"
+                android:layout_weight="1"
+
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btnPromotionsSendPhone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@null"
+                android:layout_weight="1"
+
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btnPromotionsSendEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="45dp"
+                android:layout_weight="1"
+                android:background="@null"
+
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+        </LinearLayout>
+    </FrameLayout>
+</RelativeLayout>
