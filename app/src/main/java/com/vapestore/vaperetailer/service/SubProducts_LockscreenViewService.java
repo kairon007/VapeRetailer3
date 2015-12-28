@@ -3,7 +3,6 @@ package com.vapestore.vaperetailer.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -18,18 +17,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.StringRequest;
-import com.squareup.picasso.Picasso;
-import com.vapestore.vaperetailer.ApplicationData;
-import com.vapestore.vaperetailer.CompatibilityChartActivity;
 import com.vapestore.vaperetailer.HomeKeyLocker;
 import com.vapestore.vaperetailer.Lockscreen;
 import com.vapestore.vaperetailer.LockscreenUtil;
@@ -40,13 +29,9 @@ import com.vapestore.vaperetailer.SendToPhoneActivity;
 import com.vapestore.vaperetailer.SharedPreferencesUtil;
 import com.vapestore.vaperetailer.SubProductActivity;
 import com.vapestore.vaperetailer.SubProductDetailActivity;
-import com.vapestore.vaperetailer.Vaping101Activity;
 import com.vapestore.vaperetailer.infiniteindicator.InfiniteIndicatorLayout;
 import com.vapestore.vaperetailer.infiniteindicator.slideview.BaseSliderView;
 import com.vapestore.vaperetailer.infiniteindicator.slideview.DefaultSliderView;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -59,7 +44,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -75,7 +59,7 @@ public class SubProducts_LockscreenViewService extends Service {
     private boolean mIsLockEnable = false;
     private boolean mIsSoftkeyEnable = false;
     private int mServiceStartId = 0;
-    private SendMassgeHandler mMainHandler = null;
+    //private SendMassgeHandler mMainHandler = null;
 
     InfiniteIndicatorLayout viewPager;
     private final List blockedKeys = new ArrayList(Arrays.asList(KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_UP));
@@ -91,8 +75,8 @@ public class SubProducts_LockscreenViewService extends Service {
     float currentY = 0;
 
 
-    ArrayList<String> SubProductditailIdByPosition;
-    ArrayList<String> SubProductditailImageByPosition;
+    static ArrayList<String> SubProductditailIdByPosition;
+    static ArrayList<String> SubProductditailImageByPosition;
 
     LinearLayout llVaporizers, llTankKoils, llEliquids, llDeluxeMode;
     LinearLayout llEgoTwist, llIPow2_Mod, ll_IPOW2_MOD_40W;
@@ -108,10 +92,10 @@ public class SubProducts_LockscreenViewService extends Service {
     private ArrayList<PageInfo> viewInfos;
     HomeKeyLocker mHomeKeyLocker;
 
-    int POSITION;
-    ArrayList<String> SubProductId = new ArrayList<String>();
-    ArrayList<String> SubProductImage = new ArrayList<String>();
-    HashMap<String, ArrayList<String>> SubProductDetail = new HashMap<String, ArrayList<String>>();
+    static int POSITION;
+    static ArrayList<String> SubProductId = new ArrayList<String>();
+    static ArrayList<String> SubProductImage = new ArrayList<String>();
+    static HashMap<String, ArrayList<String>> SubProductDetail = new HashMap<String, ArrayList<String>>();
 
 
     private class SendMassgeHandler extends android.os.Handler {
@@ -138,7 +122,7 @@ public class SubProducts_LockscreenViewService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mMainHandler = new SendMassgeHandler();
+        // mMainHandler = new SendMassgeHandler();
 
 
         POSITION = intent.getIntExtra("POSITION", 0);
@@ -297,29 +281,28 @@ public class SubProducts_LockscreenViewService extends Service {
         llDeluxeMode = (LinearLayout) mLockscreenView.findViewById(R.id.ll_deluxe_model);
         frameLayout = (FrameLayout) mLockscreenView.findViewById(R.id.fl_product);
 
-        // First position ..Vaporizers
+        // First position ..Vaporizers & Mods
         llEgoTwist = (LinearLayout) mLockscreenView.findViewById(R.id.ll_EGO_TWIST);
         llIPow2_Mod = (LinearLayout) mLockscreenView.findViewById(R.id.ll_IPOW2MOD);
         ll_IPOW2_MOD_40W = (LinearLayout) mLockscreenView.findViewById(R.id.ll_IPOW2MOD40W);
 
-        //Second Position ..Tank Koils
+        //second Position ..Deluxe Mode
+        llIstck_Mod = (LinearLayout) mLockscreenView.findViewById(R.id.ll_ISTICK_MOD);
+        llK_Box_Mod = (LinearLayout) mLockscreenView.findViewById(R.id.ll_K_BOX_MOD);
+        llIpv_D2_Mini = (LinearLayout) mLockscreenView.findViewById(R.id.ll_IPV_D2_MINI_MOD);
+        llEgripoled_CL = (LinearLayout) mLockscreenView.findViewById(R.id.ll_eGRIP_OLED_CLMOD_KIT);
+
+        //Third Position ..Tank Koils
         llCE2 = (LinearLayout) mLockscreenView.findViewById(R.id.ll_CR);
         llSubtank_nano = (LinearLayout) mLockscreenView.findViewById(R.id.ll_SUBTANK_NANO);
         llEgo_one_Clocc_Coils = (LinearLayout) mLockscreenView.findViewById(R.id.ll_EGO_ONE_CLOCC_COILS);
         llOrganic_cotton_Coils = (LinearLayout) mLockscreenView.findViewById(R.id.ll_ORGANIC_COTTON_COILS);
         llGenitank_Mega = (LinearLayout) mLockscreenView.findViewById(R.id.ll_GENITANK_MEGA);
 
-        //third Position ..eLiquids
+        //fourth Position ..eLiquids
         llPremium_eliquid = (LinearLayout) mLockscreenView.findViewById(R.id.ll_PREMIUM_ELIUID);
         llDripper_eliquid = (LinearLayout) mLockscreenView.findViewById(R.id.ll_DRIPPER_ELIQUID);
         llNAKED = (LinearLayout) mLockscreenView.findViewById(R.id.ll_NAKED);
-
-
-        //forth Position ..Deluxe Mode
-        llIstck_Mod = (LinearLayout) mLockscreenView.findViewById(R.id.ll_ISTICK_MOD);
-        llK_Box_Mod = (LinearLayout) mLockscreenView.findViewById(R.id.ll_K_BOX_MOD);
-        llIpv_D2_Mini = (LinearLayout) mLockscreenView.findViewById(R.id.ll_IPV_D2_MINI_MOD);
-        llEgripoled_CL = (LinearLayout) mLockscreenView.findViewById(R.id.ll_eGRIP_OLED_CLMOD_KIT);
 
         mediumFont = Typeface.createFromAsset(getAssets(), "Avenir_Next.ttc");
 
@@ -327,7 +310,8 @@ public class SubProducts_LockscreenViewService extends Service {
         btnSENDTOPHONE.setTypeface(mediumFont);
         btnSENDTOEMAIL.setTypeface(mediumFont);
 
-        image_replace_path = getExternalCacheDir().getAbsolutePath() + File.separator + getResources().getString(R.string.app_name) + File.separator + "Catch/Image/";
+        image_replace_path = getExternalCacheDir().getAbsolutePath() + File.separator
+                + getResources().getString(R.string.app_name) + File.separator + "Catch/Image/";
         Log.e("image path", "" + image_replace_path);
         dir = new File(image_replace_path);
         if (!dir.exists()) {
@@ -337,28 +321,17 @@ public class SubProducts_LockscreenViewService extends Service {
 
 
         try {
-            //Intent intent = getIntent();
-            //POSITION = intent.getIntExtra("POSITION", 0);
-            //SubProductId = intent.getStringArrayListExtra("SubProductId");
-            //SubProductImage = intent.getStringArrayListExtra("SubProducImage");
-            //SubProductDetail = (HashMap<String, ArrayList<String>>) intent.getSerializableExtra("SubProductDetail");
-//            if (POSITION == 0) {
-//                btnLeftarrow.setVisibility(View.GONE);
-//            } else if (POSITION == SubProductImage.size()) {
-//                btnRightarrow.setVisibility(View.GONE);
-//            }
-            Log.e("SubProductId", " " + SubProductId);
-            Log.e("SubProductImage", " " + SubProductImage);
-            Log.e("SubProductDetail", " " + SubProductDetail);
 
-//        for (int i = 0; i < SubProductDetail.size(); i++) {
-//
-//            if (POSITION == i) {
+            Log.e("SubProductId", "SubProducts_LockscreenViewService " + SubProductId);
+            Log.e("SubProductImage", "SubProducts_LockscreenViewService " + SubProductImage);
+            Log.e("SubProductDetail", "SubProducts_LockscreenViewService " + SubProductDetail);
+
+
             SubProductditailIdByPosition = SubProductDetail.get(SubProductId.get(POSITION) + "ID");
             SubProductditailImageByPosition = SubProductDetail.get(SubProductId.get(POSITION) + "IMAGE");
             Log.e("SubProductditail", "IdByPosion " + SubProductditailIdByPosition);
             Log.e("SubProductditail", "ImageByPosion " + SubProductditailImageByPosition);
-//            }
+
 //        }
         } catch (Exception e) {
             e.printStackTrace();
@@ -369,7 +342,11 @@ public class SubProducts_LockscreenViewService extends Service {
         btnBACK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //finish();
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("Products");
+                dettachLockScreenView();
+                SubProductActivity subproductActivity = new SubProductActivity();
+                subproductActivity.finish();
             }
         });
         if (SubProductImage != null) {
@@ -391,18 +368,18 @@ public class SubProducts_LockscreenViewService extends Service {
                     if (file.exists() || new File(image_replace_path, Image_name + ".png").exists()) {
                         Log.e("file is ", " exists : " + Image_name);
 
-                        /*textSliderView
+                        textSliderView
                                 .image(new File(image_replace_path, Image_name + ".png"))
                                 .setScaleType(BaseSliderView.ScaleType.Fit)
-                                .setOnSliderClickListener(this);*/
+                        ;
 
                     } else {
                         Log.e("file is ", " not exist : " + Image_name);
 
-                       /* textSliderView
+                        textSliderView
                                 .image(name.getUrl())
                                 .setScaleType(BaseSliderView.ScaleType.Fit)
-                                .setOnSliderClickListener(this);*/
+                        ;
                     }
                     textSliderView.getBundle()
                             .putString("extra", name.getData());
@@ -549,121 +526,142 @@ public class SubProducts_LockscreenViewService extends Service {
             }
         });
 
+        //vaporizers & mods
         llEgoTwist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(mContext, SubProductDetailActivity.class);
-                i.putExtra("POSITION", 0);
-                i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
-                i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
-                startActivity(i);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+
+
+//                Intent i = new Intent(mContext, SubProductDetailActivity.class);
+//                i.putExtra("POSITION", 0);
+//                i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
+//                i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
+//                startActivity(i);
             }
         });
         llIPow2_Mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(mContext, SubProductDetailActivity.class);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+               /* Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 1);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
                 i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
         ll_IPOW2_MOD_40W.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(mContext, SubProductDetailActivity.class);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+               /* Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 2);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
                 i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
+        //vaporizers & mods ends********
+        //Tanks & coils
         llCE2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(mContext, SubProductDetailActivity.class);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+               /* Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 0);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
                 i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
         llSubtank_nano.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(mContext, SubProductDetailActivity.class);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                /*Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 1);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
                 i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
 
         llEgo_one_Clocc_Coils.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(mContext, SubProductDetailActivity.class);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                /*Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 2);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
                 i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
         llOrganic_cotton_Coils.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(mContext, SubProductDetailActivity.class);
-                i.putExtra("POSITION", 2);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                /*Intent i = new Intent(mContext, SubProductDetailActivity.class);
+                i.putExtra("POSITION", 3);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
                 i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
         llGenitank_Mega.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(mContext, SubProductDetailActivity.class);
-                i.putExtra("POSITION", 3);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(3, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                /*Intent i = new Intent(mContext, SubProductDetailActivity.class);
+                i.putExtra("POSITION", 4);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
                 i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
+        //Tanks & coils *****end
+
+        //Premium E-liquids
         llPremium_eliquid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(mContext, SubProductDetailActivity.class);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+               /* Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 0);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
                 i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
         llDripper_eliquid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent i = new Intent(mContext, SubProductDetailActivity.class);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                /*Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 1);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
                 i.putStringArrayListExtra("IMAGE", SubProductditailImageByPosition);
-                startActivity(i);
+                startActivity(i);*/
             }
         });
         llNAKED.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
              /*   Intent i = new Intent(SubProductActivity.this, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 2);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -672,10 +670,14 @@ public class SubProducts_LockscreenViewService extends Service {
                 ;
             }
         });
+        //Premium E-liquids ends*****
+
+        //Deluxe Mode kits
         llIstck_Mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
                /* Intent i = new Intent(SubProductActivity.this, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 0);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -686,7 +688,8 @@ public class SubProducts_LockscreenViewService extends Service {
         llK_Box_Mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
                /* Intent i = new Intent(SubProductActivity.this, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 1);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -697,6 +700,8 @@ public class SubProducts_LockscreenViewService extends Service {
         llIpv_D2_Mini.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
 /*
                 Intent i = new Intent(SubProductActivity.this, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 2);
@@ -708,7 +713,8 @@ public class SubProducts_LockscreenViewService extends Service {
         llEgripoled_CL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(3, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
                 /*Intent i = new Intent(SubProductActivity.this, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 3);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -1049,8 +1055,8 @@ public class SubProducts_LockscreenViewService extends Service {
     }
 
     public void imageDownloading() {
-        for (int i = 0; i < SubProductImage.size(); i++) {
-            new DownloadFileAsync().execute(SubProductImage.get(i));
+        for (int i = 0; i < SubProductditailImageByPosition.size(); i++) {
+            new DownloadFileAsync().execute(SubProductditailImageByPosition.get(i));
         }
     }
 }

@@ -64,31 +64,22 @@ import java.util.Map;
  * Created by DUBULEE on 15. 5. 20..
  */
 public class MainActivity_LockscreenViewService extends Service {
-    private final int LOCK_OPEN_OFFSET_VALUE = 50;
+
     private Context mContext = null;
     private LayoutInflater mInflater = null;
     private View mLockscreenView = null;
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams mParams;
-    private RelativeLayout mBackgroundLayout = null;
-    private RelativeLayout mBackgroundInLayout = null;
-    private ImageView mBackgroundLockImageView = null;
-    private RelativeLayout mForgroundLayout = null;
-    private RelativeLayout mStatusBackgruondDummyView = null;
-    private RelativeLayout mStatusForgruondDummyView = null;
+
     private boolean mIsLockEnable = false;
     private boolean mIsSoftkeyEnable = false;
-    private int mDeviceWidth = 0;
-    private int mDevideDeviceWidth = 0;
-    private float mLastLayoutX = 0;
+
     private int mServiceStartId = 0;
-    private SendMassgeHandler mMainHandler = null;
-//    private boolean sIsSoftKeyEnable = false;
+
 
     private InfiniteIndicatorLayout viewPager;
 
-    private final List blockedKeys = new ArrayList(Arrays.asList(KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_UP));
-    Typeface mediumFont;
+       Typeface mediumFont;
 
     static ArrayList<String> imagelist;
     Button vaping, products, promotions;
@@ -98,15 +89,8 @@ public class MainActivity_LockscreenViewService extends Service {
 
     File dir;
     private ArrayList<PageInfo> viewInfos;
-    private static HomeKeyLocker mHomeKeyLocker;
-    static ProgressDialog pDialog;
-    public static final int progress_bar_type = 0;
-    static boolean chkupgrade = false;
-    ProgressBar pbar;
-    static String versionname = "";
-    private static Context sLockscreenActivityContext = null;
-
-    private class SendMassgeHandler extends android.os.Handler {
+        ProgressBar pbar;
+       private class SendMassgeHandler extends android.os.Handler {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -130,7 +114,7 @@ public class MainActivity_LockscreenViewService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mMainHandler = new SendMassgeHandler();
+      // mMainHandler = new SendMassgeHandler();
         if (isLockScreenAble()) {
             if (null != mWindowManager) {
                 if (null != mLockscreenView) {

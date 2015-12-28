@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -31,13 +30,11 @@ import com.vapestore.vaperetailer.CompatibilityChartActivity;
 import com.vapestore.vaperetailer.HomeKeyLocker;
 import com.vapestore.vaperetailer.Lockscreen;
 import com.vapestore.vaperetailer.LockscreenUtil;
-import com.vapestore.vaperetailer.Lockscreen_Produect;
+import com.vapestore.vaperetailer.ProductActivity;
 import com.vapestore.vaperetailer.R;
 import com.vapestore.vaperetailer.SendToEmailActivity;
 import com.vapestore.vaperetailer.SendToPhoneActivity;
 import com.vapestore.vaperetailer.SharedPreferencesUtil;
-import com.vapestore.vaperetailer.SubProductActivity;
-import com.vapestore.vaperetailer.Vaping101Activity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -113,6 +110,8 @@ public class Products_LockscreenViewService extends Service {
             initView();
             attachLockScreenView();
         }
+
+
         return Products_LockscreenViewService.START_NOT_STICKY;
     }
 
@@ -261,8 +260,8 @@ public class Products_LockscreenViewService extends Service {
         product1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferencesUtil.setBoolean(Lockscreen_Produect.ISLOCK, true);
-                Lockscreen_Produect.getInstance(getApplicationContext()).startLockscreenService(0, sub_product_id, sub_product_image, product_detail);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, sub_product_id, sub_product_image, product_detail,"SubProduct");
                /* Intent intent = new Intent(mContext, SubProductActivity.class);
                 intent.putExtra("POSITION", 0);
                 intent.putExtra("SubProductId", sub_product_id);
@@ -274,8 +273,8 @@ public class Products_LockscreenViewService extends Service {
         product2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferencesUtil.setBoolean(Lockscreen_Produect.ISLOCK, true);
-                Lockscreen_Produect.getInstance(getApplicationContext()).startLockscreenService(1, sub_product_id, sub_product_image, product_detail);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, sub_product_id, sub_product_image, product_detail,"SubProduct");
                 /*Intent intent = new Intent(mContext, SubProductActivity.class);
                 intent.putExtra("POSITION", 1);
                 intent.putExtra("SubProductId", sub_product_id);
@@ -287,8 +286,8 @@ public class Products_LockscreenViewService extends Service {
         product3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferencesUtil.setBoolean(Lockscreen_Produect.ISLOCK, true);
-                Lockscreen_Produect.getInstance(getApplicationContext()).startLockscreenService(2, sub_product_id, sub_product_image, product_detail);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, sub_product_id, sub_product_image, product_detail,"SubProduct");
 
              /*   Intent intent = new Intent(mContext, SubProductActivity.class);
                 intent.putExtra("POSITION", 2);
@@ -302,8 +301,8 @@ public class Products_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
 
-                SharedPreferencesUtil.setBoolean(Lockscreen_Produect.ISLOCK, true);
-                Lockscreen_Produect.getInstance(getApplicationContext()).startLockscreenService(3, sub_product_id, sub_product_image, product_detail);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(3, sub_product_id, sub_product_image, product_detail,"SubProduct");
                 /*Intent intent = new Intent(mContext, SubProductActivity.class);
                 intent.putExtra("POSITION", 3);
                 intent.putExtra("SubProductId", sub_product_id);
@@ -319,8 +318,8 @@ public class Products_LockscreenViewService extends Service {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
                 Lockscreen.getInstance(getApplicationContext()).startLockscreenService("MainActivity");
                 dettachLockScreenView();
-                Vaping101Activity vaping101Activity = new Vaping101Activity();
-                vaping101Activity.finish();
+                ProductActivity productActivity = new ProductActivity();
+                productActivity.finish();
             }
         });
         getProductImages();

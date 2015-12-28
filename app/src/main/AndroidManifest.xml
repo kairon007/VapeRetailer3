@@ -140,12 +140,17 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
-        <service android:name=".service.MainActivity_LockscreenService"></service>
-        <service android:name=".service.MainActivity_LockscreenViewService"></service>
-        <service android:name=".service.Products_LockscreenViewService"></service>
-        <service android:name=".service.SubProducts_LockscreenViewService"></service>
-        <service android:name=".service.Vaping101_LockscreenViewService"></service>
-        <service android:name=".service.Produect_LockscreenService"></service>
+        <service android:name=".service.MainActivity_LockscreenService"/>
+        <service android:name=".service.Product_LockscreenService"/>
+        <service android:name=".service.SubProducts_LockscreenService"/>
+        <service android:name=".service.SubProductDetail_LockScreenService"/>
+
+        <service android:name=".service.Products_LockscreenViewService"/>
+        <service android:name=".service.MainActivity_LockscreenViewService"/>
+        <service android:name=".service.SubProducts_LockscreenViewService"/>
+        <service android:name=".service.Vaping101_LockscreenViewService"/>
+        <service android:name=".service.SubProductDetail_LockScreenViewService"/>
+
     </application>
 
 </manifest>

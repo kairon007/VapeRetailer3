@@ -279,11 +279,12 @@ public class Vaping101_LockscreenViewService extends Service {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("MainActivity");
                 dettachLockScreenView();
                 Vaping101Activity vaping101Activity = new Vaping101Activity();
                 vaping101Activity.finish();
-                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("MainActivity");
+
 
             }
         });
