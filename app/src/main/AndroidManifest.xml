@@ -26,7 +26,7 @@
         <activity
             android:name=".MainActivity"
             android:clearTaskOnLaunch="true"
-            android:excludeFromRecents="true"
+
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:stateNotNeeded="true"
@@ -55,37 +55,37 @@
 
         <activity
             android:name=".Vaping101Activity"
-            android:excludeFromRecents="true"
+
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".PromotionActivity"
-            android:excludeFromRecents="true"
+
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".CompatibilityChartActivity"
-            android:excludeFromRecents="true"
+
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ProductActivity"
-            android:excludeFromRecents="true"
+
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".SubProductActivity"
-            android:excludeFromRecents="true"
+
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".SubProductDetailActivity"
-            android:excludeFromRecents="true"
+
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".LoginActivity"
-            android:excludeFromRecents="true"
+
             android:noHistory="true"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden|stateHidden">
@@ -97,12 +97,12 @@
         </activity>
         <activity
             android:name=".SendToPhoneActivity"
-            android:excludeFromRecents="true"
+
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
             android:name=".SendToEmailActivity"
-            android:excludeFromRecents="true"
+
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
@@ -136,7 +136,7 @@
         </service>
         <activity
             android:name=".PasswordActivity"
-            android:excludeFromRecents="true"
+
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
@@ -151,7 +151,7 @@
         <service android:name=".service.SubProductDetail_LockScreenViewService"/>
         <service android:name=".service.PromotionActivity_LockscreenViewService"/>
         <service android:name=".service.CompatibilityChart_LockscreenViewService"/>
-        <service android:name=".service.Password_LockscreenViewService"/>
+        <service android:name=".service.Password_LockscreenViewService" />
         <service android:name=".service.SendtoEmail_LockscreenViewService"/>
         <service android:name=".service.SendtoPhone_LockscreenViewService"/>
     </application>

@@ -40,7 +40,7 @@ public class PasswordActivity extends Activity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-        setContentView(R.layout.activity_empty);
+        setContentView(R.layout.password_layout);
         sLockscreenActivityContext = this;
 
         WindowManager manager = ((WindowManager) getApplicationContext()

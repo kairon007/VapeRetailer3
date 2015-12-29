@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -142,9 +143,9 @@ public class Password_LockscreenViewService extends Service {
     @Override
     public void onDestroy() {
         dettachLockScreenView();
-
-        SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, false);
-        Lockscreen.getInstance(mContext).stopLockscreenService();
+//
+//        SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, false);
+//        Lockscreen.getInstance(mContext).stopLockscreenService();
     }
 
 
@@ -244,6 +245,7 @@ public class Password_LockscreenViewService extends Service {
         securityActiveDeactive = (Button) mLockscreenView.findViewById(R.id.btnSecurityActiveDeactive);
         pwdTGB.setChecked(true);
 
+
 //        pDialog = new ProgressDialog(this);
 //        pDialog.setMessage("Downloading Please wait...");
 //        pDialog.setIndeterminate(false);
@@ -253,6 +255,11 @@ public class Password_LockscreenViewService extends Service {
 //        pDialog.setCanceledOnTouchOutside(false);
 
         pwd.requestFocus();
+
+        InputMethodManager imm =
+                (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(pwd.getWindowToken(), 0);
+
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -262,8 +269,12 @@ public class Password_LockscreenViewService extends Service {
                 PasswordActivity passwordActivity = new PasswordActivity();
                 passwordActivity.finish();*/
                // finish();
+
                 Intent stopLockscreenViewIntent = new Intent(mContext, Password_LockscreenViewService.class);
                 mContext.stopService(stopLockscreenViewIntent);
+                //                Vaping101Activity va=new Vaping101Activity();
+//                va.finish();
+
             }
         });
 
@@ -414,6 +425,7 @@ public class Password_LockscreenViewService extends Service {
                         startActivity(intent);
 
                         android.os.Process.killProcess(android.os.Process.myPid());
+                        System.runFinalizersOnExit(true);
                         System.exit(0);
                     }
                 }
