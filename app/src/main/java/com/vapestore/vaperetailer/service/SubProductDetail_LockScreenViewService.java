@@ -88,10 +88,10 @@ public class SubProductDetail_LockScreenViewService extends Service {
     private ArrayList<PageInfo> viewInfos;
     HomeKeyLocker mHomeKeyLocker;
 
-    static int POSITION;
-    static ArrayList<String> SubProductId = new ArrayList<String>();
-    static ArrayList<String> SubProductImage = new ArrayList<String>();
-    static HashMap<String, ArrayList<String>> SubProductDetail = new HashMap<String, ArrayList<String>>();
+    static int POSITION,sub_position;
+    static ArrayList<String> SubProductId ;
+    static ArrayList<String> SubProductImage;
+    static HashMap<String, ArrayList<String>> SubProductDetail ;
 
 
     static boolean flag = false, flag1 = false;
@@ -129,10 +129,10 @@ public class SubProductDetail_LockScreenViewService extends Service {
         imageId = intent.getStringArrayListExtra("SubProductDetailId");
         imagelist = intent.getStringArrayListExtra("SubProductDetailImage");
 
-        intent.getIntExtra("SUB_PRODUCT_POSITION", 0);
-        intent.getStringArrayListExtra("SUB_PRODUCT_Id");
-        intent.getStringArrayListExtra("SUB_PRODUCT_Image");
-        intent.getSerializableExtra("SUB_PRODUCT_DETAIL");
+        sub_position=intent.getIntExtra("SUB_PRODUCT_POSITION", 0);
+        SubProductId=intent.getStringArrayListExtra("SUB_PRODUCT_Id");
+        SubProductImage=intent.getStringArrayListExtra("SUB_PRODUCT_Image");
+        SubProductDetail= (HashMap<String, ArrayList<String>>) intent.getSerializableExtra("SUB_PRODUCT_DETAIL");
 
 
         imageCount = imagelist.size();
@@ -259,6 +259,7 @@ public class SubProductDetail_LockScreenViewService extends Service {
         btnLeftarrow = (Button) mLockscreenView.findViewById(R.id.btnleftArrow);
         btnRightarrow = (Button) mLockscreenView.findViewById(R.id.btnrightArrow);
 
+        viewPager.setInterval(10000);
         mediumFont = Typeface.createFromAsset(getAssets(), "Avenir_Next.ttc");
 
         btnBACK.setTypeface(mediumFont);
@@ -267,25 +268,28 @@ public class SubProductDetail_LockScreenViewService extends Service {
         btnSENDTOEMAIL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int current_item = viewPager.getCurrentPage() % imageCount;
                 Log.e("send email current", "" + current_item);
-                Intent i = new Intent(mContext, SendToEmailActivity.class);
+
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("SendToEmail", "subproduct_details", imageId.get(current_item));
+                /*Intent i = new Intent(mContext, SendToEmailActivity.class);
                 i.putExtra("IMAGETYPE", "subproduct_details");
                 i.putExtra("IMAGEID", "" + imageId.get(current_item));
-                startActivity(i);
+                startActivity(i);*/
             }
         });
         btnSENDTOPHONE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int current_item = viewPager.getCurrentPage() % imageCount;
                 Log.e("send email current", "" + current_item);
-                Intent i = new Intent(mContext, SendToPhoneActivity.class);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("SendToPhone", "subproduct_details", imageId.get(current_item));
+               /* Intent i = new Intent(mContext, SendToPhoneActivity.class);
                 i.putExtra("IMAGETYPE", "subproduct_details");
                 i.putExtra("IMAGEID", "" + imageId.get(current_item));
-                startActivity(i);
+                startActivity(i);*/
             }
         });
 
@@ -305,12 +309,14 @@ public class SubProductDetail_LockScreenViewService extends Service {
             @Override
             public void onClick(View v) {
                // finish();
-                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("SubProduct");
+               /* SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(sub_position,SubProductId,SubProductImage,SubProductDetail,"SubProduct");
                 dettachLockScreenView();
 
                 SubProductDetailActivity subProductDetailActivity = new SubProductDetailActivity();
-                subProductDetailActivity.finish();
+                subProductDetailActivity.finish();*/
+                Intent stopLockscreenViewIntent = new Intent(mContext, SubProductDetail_LockScreenViewService.class);
+                mContext.stopService(stopLockscreenViewIntent);
             }
         });
         btnLeftarrow.setOnClickListener(new View.OnClickListener() {
@@ -389,159 +395,6 @@ public class SubProductDetail_LockScreenViewService extends Service {
 
         viewPager.getPagerIndicator().setCurrentItem(((count % imageCount) + POSITION + (count / 2)));
 
-
-       /* viewInfos = new ArrayList<PageInfo>();
-
-        SubProductditailIdByPosition = new ArrayList<String>();
-        SubProductditailImageByPosition = new ArrayList<String>();
-
-        viewPager = (InfiniteIndicatorLayout) mLockscreenView.findViewById(R.id.vpSubProductSlider);
-        btnBACK = (Button) mLockscreenView.findViewById(R.id.btnSubProductBack);
-        btnSENDTOPHONE = (Button) mLockscreenView.findViewById(R.id.btnSubProductSendPhone);
-        btnSENDTOEMAIL = (Button) mLockscreenView.findViewById(R.id.btnSubProductSendEmail);
-        btnLeftarrow = (Button) mLockscreenView.findViewById(R.id.btnleftArrow);
-        btnRightarrow = (Button) mLockscreenView.findViewById(R.id.btnrightArrow);
-        btnSENDTOEMAIL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int current_item = viewPager.getCurrentPage() % 4;
-                Log.e("send email current", "" + current_item);
-                Intent i = new Intent(mContext, SendToEmailActivity.class);
-                i.putExtra("IMAGETYPE", "subproduct");
-                i.putExtra("IMAGEID", "" + SubProductId.get(current_item));
-                startActivity(i);
-            }
-        });
-        btnSENDTOPHONE.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int current_item = viewPager.getCurrentPage() % 4;
-                Log.e("send email current", "" + current_item);
-                Intent i = new Intent(mContext, SendToPhoneActivity.class);
-                i.putExtra("IMAGETYPE", "subproduct");
-                i.putExtra("IMAGEID", "" + SubProductId.get(current_item));
-                startActivity(i);
-            }
-        });
-
-               mediumFont = Typeface.createFromAsset(getAssets(), "Avenir_Next.ttc");
-
-        btnBACK.setTypeface(mediumFont);
-        btnSENDTOPHONE.setTypeface(mediumFont);
-        btnSENDTOEMAIL.setTypeface(mediumFont);
-
-        image_replace_path = getExternalCacheDir().getAbsolutePath() + File.separator
-                + getResources().getString(R.string.app_name) + File.separator + "Catch/Image/";
-        Log.e("image path", "" + image_replace_path);
-        dir = new File(image_replace_path);
-        if (!dir.exists()) {
-            if (!dir.mkdirs()) {
-            }
-        }
-
-
-        try {
-
-            SubProductditailIdByPosition = SubProductDetail.get(SubProductId.get(POSITION) + "ID");
-            SubProductditailImageByPosition = SubProductDetail.get(SubProductId.get(POSITION) + "IMAGE");
-            Log.e("SubProductditail", "IdByPosion " + SubProductditailIdByPosition);
-            Log.e("SubProductditail", "ImageByPosion " + SubProductditailImageByPosition);
-
-//        }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        btnBACK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("Products");
-                dettachLockScreenView();
-                SubProductActivity subproductActivity = new SubProductActivity();
-                subproductActivity.finish();
-            }
-        });
-        if (SubProductImage != null) {
-
-            for (int j = 0; j < SubProductImage.size(); j++) {
-                viewInfos.add(new PageInfo("" + j, SubProductImage.get(j)));
-            }
-            for (PageInfo name : viewInfos) {
-                DefaultSliderView textSliderView = new DefaultSliderView(this);
-
-                try {
-                    Image_name = new File(new URL(name.getUrl()).getPath()).getName();
-                    int pos = Image_name.lastIndexOf(".");
-                    if (pos > 0) {
-                        Image_name = Image_name.substring(0, pos);
-                        Log.e("Get File Name", " : " + Image_name);
-                    }
-                    File file = new File(image_replace_path, Image_name);
-                    if (file.exists() || new File(image_replace_path, Image_name + ".png").exists()) {
-                        Log.e("file is ", " exists : " + Image_name);
-
-                        textSliderView
-                                .image(new File(image_replace_path, Image_name + ".png"))
-                                .setScaleType(BaseSliderView.ScaleType.Fit)
-                        ;
-
-                    } else {
-                        Log.e("file is ", " not exist : " + Image_name);
-
-                        textSliderView
-                                .image(name.getUrl())
-                                .setScaleType(BaseSliderView.ScaleType.Fit)
-                        ;
-                    }
-                    textSliderView.getBundle()
-                            .putString("extra", name.getData());
-                    viewPager.addSlider(textSliderView);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }
-        imageDownloading();
-
-        viewPager.setIndicatorPosition(InfiniteIndicatorLayout.IndicatorPosition.Right_Bottom);
-        Log.e("page count", "" + viewPager.getCount());
-        int count = viewPager.getCount();
-
-        viewPager.getPagerIndicator().setCurrentItem((count % 4) + POSITION + (count / 2));
-
-
-
-        btnLeftarrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("current item", "page:" + viewPager.getCurrentPage() + "");
-                int count = viewPager.getCount();
-                int current_item = viewPager.getCurrentPage();
-                int total = (count % 4) + (current_item - 1);
-                Log.e("total:", "" + total);
-                viewPager.getPagerIndicator().setCurrentItem(total);
-                  }
-        });
-
-        btnRightarrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Log.e("current item", "page:" + viewPager.getCurrentPage() + "");
-                int count = viewPager.getCount();
-                int current_item = viewPager.getCurrentPage();
-                int total = (count % 4) + (current_item + 1);
-                Log.e("total:", "" + total);
-                viewPager.getPagerIndicator().setCurrentItem(total);
-
-            }
-        });
-*/
     }
 
 

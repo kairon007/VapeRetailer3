@@ -124,20 +124,11 @@ public class SubProductActivity extends Activity implements BaseSliderView.OnSli
             SubProductId = intent.getStringArrayListExtra("SubProductId");
             SubProductImage = intent.getStringArrayListExtra("SubProducImage");
             SubProductDetail = (HashMap<String, ArrayList<String>>) intent.getSerializableExtra("SubProductDetail");
-//            if (POSITION == 0) {
-//                btnLeftarrow.setVisibility(View.GONE);
-//            } else if (POSITION == SubProductImage.size()) {
-//                btnRightarrow.setVisibility(View.GONE);
-//            }
+
             Log.e("SubProductId", "SubProductActivity " + SubProductId);
             Log.e("SubProductImage", "SubProductActivity " + SubProductImage);
             Log.e("SubProductDetail", "SubProductActivity " + SubProductDetail);
 
-//        for (int i = 0; i < SubProductDetail.size(); i++) {
-//
-//            if (POSITION == i) {
-
-//        }
         } catch (Exception e) {
             e.printStackTrace();
         }

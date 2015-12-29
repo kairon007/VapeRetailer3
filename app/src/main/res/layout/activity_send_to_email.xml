@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical"
-
     tools:context="com.vapestore.vaperetailer.SendToEmailActivity">
 
     <ScrollView
@@ -38,6 +38,8 @@
                 android:inputType="text"
                 android:paddingLeft="20dp"
                 android:singleLine="true"
+                android:textColor="#0e5ba9"
+                android:textColorHint="@android:color/darker_gray"
                 android:textSize="35sp" />
 
             <LinearLayout
@@ -480,7 +482,8 @@
                         android:layout_height="80dp"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/keyboard_light_blue_button_shape"
-                        android:scaleType="fitCenter" android:padding="10dp"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
                         android:src="@drawable/ic_uncaps"
                         android:textColor="#ffffff"
                         android:textSize="50sp"

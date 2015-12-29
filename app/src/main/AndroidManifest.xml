@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vapestore.vaperetailer"
-    android:versionCode="1"
-    android:versionName="1.0.1">
+    android:versionCode="14"
+    android:versionName="1.0.14">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -141,7 +141,6 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <service android:name=".service.MainActivity_LockscreenService"/>
-        <service android:name=".service.Product_LockscreenService"/>
         <service android:name=".service.SubProducts_LockscreenService"/>
         <service android:name=".service.SubProductDetail_LockScreenService"/>
 
@@ -150,7 +149,11 @@
         <service android:name=".service.SubProducts_LockscreenViewService"/>
         <service android:name=".service.Vaping101_LockscreenViewService"/>
         <service android:name=".service.SubProductDetail_LockScreenViewService"/>
-
+        <service android:name=".service.PromotionActivity_LockscreenViewService"/>
+        <service android:name=".service.CompatibilityChart_LockscreenViewService"/>
+        <service android:name=".service.Password_LockscreenViewService"/>
+        <service android:name=".service.SendtoEmail_LockscreenViewService"/>
+        <service android:name=".service.SendtoPhone_LockscreenViewService"/>
     </application>
 
 </manifest>

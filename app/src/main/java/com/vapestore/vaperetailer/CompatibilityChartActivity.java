@@ -25,6 +25,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Picasso;
+import com.vapestore.vaperetailer.service.CompatibilityChart_LockscreenViewService;
+import com.vapestore.vaperetailer.service.Products_LockscreenViewService;
 
 import org.json.JSONObject;
 
@@ -37,84 +39,67 @@ import java.util.Map;
 public class CompatibilityChartActivity extends Activity {
     Typeface mediumFont;
     Button back, sendphone, sendemail;
-    ImageView chartimage;
-    String imageId = "";
+    private static Context sLockscreenActivityContext = null;
+
+
     private final List blockedKeys = new ArrayList(Arrays.asList(KeyEvent.KEYCODE_VOLUME_DOWN, KeyEvent.KEYCODE_VOLUME_UP));
     HomeKeyLocker mHomeKeyLocker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_compatibility_chart);
-
+        getWindow().setType(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        setContentView(R.layout.activity_compatibility_chart);
+        sLockscreenActivityContext = this;
 
         WindowManager manager = ((WindowManager) getApplicationContext()
                 .getSystemService(Context.WINDOW_SERVICE));
-
         WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
         localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
         localLayoutParams.gravity = Gravity.TOP;
         localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
-
-                // this is to enable the notification to recieve touch events
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
-
-                // Draws over status bar
                 WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
-
         localLayoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         localLayoutParams.height = (int) (50 * getResources()
                 .getDisplayMetrics().scaledDensity);
         localLayoutParams.format = PixelFormat.TRANSPARENT;
-
         customViewGroup view = new customViewGroup(this);
-
         manager.addView(view, localLayoutParams);
+
+        setLockGuard();
+
 
         // every time someone enters the kiosk mode, set the flag true
         PrefUtils.setKioskModeActive(true, getApplicationContext());
         mHomeKeyLocker = new HomeKeyLocker();
         mHomeKeyLocker.lock(CompatibilityChartActivity.this);
 
+    }
 
-        back = (Button) findViewById(R.id.btnBack);
-        sendphone = (Button) findViewById(R.id.btnSendToPhone);
-        sendemail = (Button) findViewById(R.id.btnSendToEmail);
-        chartimage = (ImageView) findViewById(R.id.imvVaping);
-        mediumFont = Typeface.createFromAsset(getAssets(), "Avenir_Next.ttc");
-        back.setTypeface(mediumFont);
-        sendphone.setTypeface(mediumFont);
-        sendemail.setTypeface(mediumFont);
+    private void setLockGuard() {
+        boolean isLockEnable = false;
+        if (!LockscreenUtil.getInstance(sLockscreenActivityContext).isStandardKeyguardState()) {
+            isLockEnable = false;
+        } else {
+            isLockEnable = true;
+        }
 
-        sendemail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(CompatibilityChartActivity.this, SendToEmailActivity.class);
-                i.putExtra("IMAGETYPE", "compatibility");
-                i.putExtra("IMAGEID", "" + imageId);
-                startActivity(i);
+        Intent startLockscreenIntent = new Intent(this, CompatibilityChart_LockscreenViewService.class);
+        startService(startLockscreenIntent);
+
+        boolean isSoftkeyEnable = LockscreenUtil.getInstance(sLockscreenActivityContext).isSoftKeyAvail(this);
+        SharedPreferencesUtil.setBoolean(Lockscreen.ISSOFTKEY, isSoftkeyEnable);
+        if (!isSoftkeyEnable) {
+            //mMainHandler.sendEmptyMessage(0);
+        } else if (isSoftkeyEnable) {
+            if (isLockEnable) {
+                //mMainHandler.sendEmptyMessage(0);
             }
-        });
-        sendphone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(CompatibilityChartActivity.this, SendToPhoneActivity.class);
-                i.putExtra("IMAGETYPE", "compatibility");
-                i.putExtra("IMAGEID", "" + imageId);
-                startActivity(i);
-            }
-        });
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        getCompatibilityChartImages();
-
-
-
+        }
     }
 
     @Override
@@ -142,70 +127,7 @@ public class CompatibilityChartActivity extends Activity {
         return false;
     }
 
-    public void getCompatibilityChartImages() {
-        String tag_json_obj = "json_obj_req";
 
-        String url = ApplicationData.serviceURL;
-        Log.e("url", url + "");
-
-        StringRequest jsonObjReq = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String response) {
-                        Log.e("FetchCompChartImage", " " + response.toString());
-
-                        SharedPreferences prefs = getSharedPreferences("OFFLINE_DATA", 0);
-                        SharedPreferences.Editor edit = prefs.edit();
-                        edit.putString("CHART_RESPONSE", "" + response.toString());
-                        edit.commit();
-                        setServiceResponse(response);
-                    }
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-                VolleyLog.e("FetchCompatibilityChartImage", "Error: " + error.getMessage());
-                error.getCause();
-                error.printStackTrace();
-
-                SharedPreferences prefs = getSharedPreferences("OFFLINE_DATA", 0);
-                String response = prefs.getString("CHART_RESPONSE", "");
-                setServiceResponse(response);
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("action", "FetchCompatibilityChartImage");
-
-                return params;
-            }
-        };
-        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(20 * 1000, 1, 1.0f));
-        // Adding request to request queue
-        ApplicationData.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
-    }
-
-    public void setServiceResponse(String response) {
-        if (!response.isEmpty()) {
-            try {
-                JSONObject jsob = new JSONObject(response);
-
-                String msg = jsob.getString("msg");
-                Log.e("msg", "" + msg);
-                if (msg.equalsIgnoreCase("Success")) {
-                    JSONObject strdata = jsob.getJSONObject("data");
-                    imageId = strdata.getString("imageid");
-                    Picasso.with(CompatibilityChartActivity.this).load(strdata.getString("image_url")).fit()
-                            .into(chartimage);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {

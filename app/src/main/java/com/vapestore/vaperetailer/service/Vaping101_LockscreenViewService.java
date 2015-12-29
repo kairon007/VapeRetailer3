@@ -251,27 +251,34 @@ public class Vaping101_LockscreenViewService extends Service {
         sendemail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mContext, SendToEmailActivity.class);
-                i.putExtra("IMAGETYPE", "vaping");
-                i.putExtra("IMAGEID", "" + imageid);
-                startActivity(i);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("SendToEmail","vaping",imageid);
+//                Intent i = new Intent(mContext, SendToEmailActivity.class);
+//                i.putExtra("IMAGETYPE", "vaping");
+//                i.putExtra("IMAGEID", "" + imageid);
+//                startActivity(i);
             }
         });
         sendphone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mContext, SendToPhoneActivity.class);
-                i.putExtra("IMAGETYPE", "vaping");
-                i.putExtra("IMAGEID", "" + imageid);
-                startActivity(i);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("SendToPhone", "vaping", imageid);
+//                Intent i = new Intent(mContext, SendToPhoneActivity.class);
+//                i.putExtra("IMAGETYPE", "vaping");
+//                i.putExtra("IMAGEID", "" + imageid);
+//                startActivity(i);
             }
         });
 
         hidesecurity.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent i = new Intent(mContext, PasswordActivity.class);
-                startActivity(i);
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("Password");
+               // dettachLockScreenView();
+//                Vaping101Activity vapingActivity = new Vaping101Activity();
+//                vapingActivity.finish();
                 return false;
             }
         });
@@ -279,13 +286,13 @@ public class Vaping101_LockscreenViewService extends Service {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("MainActivity");
-                dettachLockScreenView();
-                Vaping101Activity vaping101Activity = new Vaping101Activity();
-                vaping101Activity.finish();
-
-
+//                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+//                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("MainActivity");
+//                dettachLockScreenView();
+//                Vaping101Activity vaping101Activity = new Vaping101Activity();
+//                vaping101Activity.finish();
+                Intent stopLockscreenViewIntent = new Intent(mContext, Vaping101_LockscreenViewService.class);
+                mContext.stopService(stopLockscreenViewIntent);
             }
         });
 

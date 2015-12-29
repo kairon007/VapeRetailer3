@@ -247,18 +247,24 @@ public class MainActivity_LockscreenViewService extends Service {
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
                 Lockscreen.getInstance(getApplicationContext()).startLockscreenService("Vaping101");
+//                MainActivity ma=new MainActivity();
+//                ma.finish();
 
             }
         });
         promotions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dettachLockScreenView();
-                MainActivity main = new MainActivity();
-                main.finish();
+//                dettachLockScreenView();
+//                MainActivity main = new MainActivity();
+//                main.finish();
                 /*Intent i = new Intent(mContext, PromotionActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);*/
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("Promotions");
+//                MainActivity ma=new MainActivity();
+//                ma.finish();
             }
         });
         products.setOnClickListener(new View.OnClickListener() {
@@ -266,6 +272,8 @@ public class MainActivity_LockscreenViewService extends Service {
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
                 Lockscreen.getInstance(getApplicationContext()).startLockscreenService("Products");
+//                MainActivity ma=new MainActivity();
+//                ma.finish();
 
             }
         });

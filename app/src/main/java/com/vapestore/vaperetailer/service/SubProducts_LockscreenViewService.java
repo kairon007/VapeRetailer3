@@ -24,11 +24,7 @@ import com.vapestore.vaperetailer.Lockscreen;
 import com.vapestore.vaperetailer.LockscreenUtil;
 import com.vapestore.vaperetailer.PageInfo;
 import com.vapestore.vaperetailer.R;
-import com.vapestore.vaperetailer.SendToEmailActivity;
-import com.vapestore.vaperetailer.SendToPhoneActivity;
 import com.vapestore.vaperetailer.SharedPreferencesUtil;
-import com.vapestore.vaperetailer.SubProductActivity;
-import com.vapestore.vaperetailer.SubProductDetailActivity;
 import com.vapestore.vaperetailer.infiniteindicator.InfiniteIndicatorLayout;
 import com.vapestore.vaperetailer.infiniteindicator.slideview.BaseSliderView;
 import com.vapestore.vaperetailer.infiniteindicator.slideview.DefaultSliderView;
@@ -257,10 +253,13 @@ public class SubProducts_LockscreenViewService extends Service {
             public void onClick(View v) {
                 int current_item = viewPager.getCurrentPage() % 4;
                 Log.e("send email current", "" + current_item);
-                Intent i = new Intent(mContext, SendToEmailActivity.class);
+
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("SendToEmail", "subproduct", SubProductId.get(current_item));
+               /* Intent i = new Intent(mContext, SendToEmailActivity.class);
                 i.putExtra("IMAGETYPE", "subproduct");
                 i.putExtra("IMAGEID", "" + SubProductId.get(current_item));
-                startActivity(i);
+                startActivity(i);*/
             }
         });
         btnSENDTOPHONE.setOnClickListener(new View.OnClickListener() {
@@ -268,10 +267,14 @@ public class SubProducts_LockscreenViewService extends Service {
             public void onClick(View v) {
                 int current_item = viewPager.getCurrentPage() % 4;
                 Log.e("send email current", "" + current_item);
-                Intent i = new Intent(mContext, SendToPhoneActivity.class);
+
+                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService("SendToPhone", "subproduct", SubProductId.get(current_item));
+
+               /* Intent i = new Intent(mContext, SendToPhoneActivity.class);
                 i.putExtra("IMAGETYPE", "subproduct");
                 i.putExtra("IMAGEID", "" + SubProductId.get(current_item));
-                startActivity(i);
+                startActivity(i);*/
             }
         });
 
@@ -304,6 +307,7 @@ public class SubProducts_LockscreenViewService extends Service {
         llDripper_eliquid = (LinearLayout) mLockscreenView.findViewById(R.id.ll_DRIPPER_ELIQUID);
         llNAKED = (LinearLayout) mLockscreenView.findViewById(R.id.ll_NAKED);
 
+        viewPager.setInterval(10000);
         mediumFont = Typeface.createFromAsset(getAssets(), "Avenir_Next.ttc");
 
         btnBACK.setTypeface(mediumFont);
@@ -342,11 +346,13 @@ public class SubProducts_LockscreenViewService extends Service {
         btnBACK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
+                Intent stopLockscreenViewIntent = new Intent(mContext, SubProducts_LockscreenViewService.class);
+                mContext.stopService(stopLockscreenViewIntent);
+                /*SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
                 Lockscreen.getInstance(getApplicationContext()).startLockscreenService("Products");
                 dettachLockScreenView();
                 SubProductActivity subproductActivity = new SubProductActivity();
-                subproductActivity.finish();
+                subproductActivity.finish();*/
             }
         });
         if (SubProductImage != null) {
@@ -532,7 +538,7 @@ public class SubProducts_LockscreenViewService extends Service {
             public void onClick(View v) {
 
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
 
 
 //                Intent i = new Intent(mContext, SubProductDetailActivity.class);
@@ -546,7 +552,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                /* Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 1);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -558,7 +564,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                /* Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 2);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -572,7 +578,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                /* Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 0);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -584,7 +590,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                 /*Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 1);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -597,7 +603,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                 /*Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 2);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -609,7 +615,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                 /*Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 3);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -621,7 +627,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(3, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(3, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                 /*Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 4);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -636,7 +642,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                /* Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 0);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -648,7 +654,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                 /*Intent i = new Intent(mContext, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 1);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -661,7 +667,7 @@ public class SubProducts_LockscreenViewService extends Service {
             public void onClick(View v) {
 
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
              /*   Intent i = new Intent(SubProductActivity.this, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 2);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -677,7 +683,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(0, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                /* Intent i = new Intent(SubProductActivity.this, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 0);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -689,7 +695,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(1, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                /* Intent i = new Intent(SubProductActivity.this, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 1);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -701,7 +707,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(2, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
 /*
                 Intent i = new Intent(SubProductActivity.this, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 2);
@@ -714,7 +720,7 @@ public class SubProducts_LockscreenViewService extends Service {
             @Override
             public void onClick(View v) {
                 SharedPreferencesUtil.setBoolean(Lockscreen.ISLOCK, true);
-                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(3, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail",POSITION,SubProductId,SubProductImage,SubProductDetail);
+                Lockscreen.getInstance(getApplicationContext()).startLockscreenService(3, SubProductditailIdByPosition, SubProductditailImageByPosition, "SubProductDetail", POSITION, SubProductId, SubProductImage, SubProductDetail);
                 /*Intent i = new Intent(SubProductActivity.this, SubProductDetailActivity.class);
                 i.putExtra("POSITION", 3);
                 i.putStringArrayListExtra("ID", SubProductditailIdByPosition);
@@ -762,81 +768,12 @@ public class SubProducts_LockscreenViewService extends Service {
                 Log.e("total:", "" + total);
                 viewPager.getPagerIndicator().setCurrentItem(total);
                 hideAndShoeProducts();
-                // btnLeftarrow.setVisibility(View.VISIBLE);
-//                if (viewPager.getCurrentItem() == SubProductImage.size() - 1) {
-//                    // btnRightarrow.setVisibility(View.GONE);
-//                    viewPager.setCurrentItem(0, false);
-//                    hideAndShoeProducts();
-//                } else if (viewPager.getCurrentItem() >= 0) {
-////                    if (viewPager.getCurrentItem() == SubProductImage.size() - 2) {
-////                        btnRightarrow.setVisibility(View.GONE);
-////                    }
-//                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
-//                    hideAndShoeProducts();
-//
-//                }
-//                Log.e("viewPagerPosition ", ": " + viewPager.getCurrentItem());
+
 
             }
         });
 
-//        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//            //    Log.e("onPageScrolled position",""+position);
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                Log.e("onPageSelected position",""+position);
-////                if (position == 0) {
-////                    viewPager.setCurrentItem(SubProductImage.size() - 1, true);
-////                    hideAndShoeProducts();
-////                } else if (position == SubProductImage.size() - 1) {
-////                    viewPager.setCurrentItem(0, true);
-////                    hideAndShoeProducts();
-////                }
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//               // Log.e("onPageScrollStateChanged position",""+state);
-//            }
-//        });
-        // runnable(imagelist.size());
-       /* viewPager.setOnTouchListener(new View.OnTouchListener() {
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                listViewTouch(event);
-
-                switch (event.getAction()) {
-
-                    case MotionEvent.ACTION_CANCEL:
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        // calls when touch release on ViewPager
-
-                        if (SubProductImage != null && SubProductImage.size() != 0) {
-                            stopSliding = false;
-//                            runnable(productslist.size());
-//                            handler.postDelayed(animateViewPager, ANIM_VIEWPAGER_DELAY_USER_VIEW);
-                        }
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        // calls when ViewPager touch
-                        if (handler != null && stopSliding == false) {
-                            stopSliding = true;
-                            //  handler.removeCallbacks(animateViewPager);
-                        }
-                        break;
-                }
-                return false;
-            }
-        });*/
     }
 
     public boolean listViewTouch(MotionEvent event) {
@@ -1018,6 +955,7 @@ public class SubProducts_LockscreenViewService extends Service {
 
 
     private void hideAndShoeProducts() {
+        try {
         Log.e("current", "position" + viewPager.getCurrentPage());
         SubProductditailIdByPosition = SubProductDetail.get(SubProductId.get(viewPager.getCurrentPage() % 4) + "ID");
         SubProductditailImageByPosition = SubProductDetail.get(SubProductId.get(viewPager.getCurrentPage() % 4) + "IMAGE");
@@ -1051,6 +989,9 @@ public class SubProducts_LockscreenViewService extends Service {
             llEliquids.setVisibility(View.VISIBLE);
             llDeluxeMode.setVisibility(View.GONE);
 
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

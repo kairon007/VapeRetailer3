@@ -4,12 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.vapestore.vaperetailer.service.CompatibilityChart_LockscreenViewService;
 import com.vapestore.vaperetailer.service.MainActivity_LockscreenService;
 import com.vapestore.vaperetailer.service.MainActivity_LockscreenViewService;
-import com.vapestore.vaperetailer.service.Product_LockscreenService;
+import com.vapestore.vaperetailer.service.Password_LockscreenViewService;
 import com.vapestore.vaperetailer.service.Products_LockscreenViewService;
+import com.vapestore.vaperetailer.service.PromotionActivity_LockscreenViewService;
+import com.vapestore.vaperetailer.service.SendtoEmail_LockscreenViewService;
+import com.vapestore.vaperetailer.service.SendtoPhone_LockscreenViewService;
+import com.vapestore.vaperetailer.service.SubProductDetail_LockScreenService;
+import com.vapestore.vaperetailer.service.SubProductDetail_LockScreenViewService;
 import com.vapestore.vaperetailer.service.SubProducts_LockscreenService;
 import com.vapestore.vaperetailer.service.SubProducts_LockscreenViewService;
+import com.vapestore.vaperetailer.service.Vaping101_LockscreenViewService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,33 +53,29 @@ public class Lockscreen {
     public void startLockscreenService(final String str) {
         SharedPreferencesUtil.init(mContext);
         Log.e("Start from Lock screen ", " : " + str);
-       // if (str.equalsIgnoreCase("MainActivity")) {
-            Log.e("Start from Lock screen ", " 1: " + str);
-            Intent startLockscreenIntent = new Intent(mContext, MainActivity_LockscreenService.class);
-            startLockscreenIntent.putExtra("FROM", str);
-            mContext.startService(startLockscreenIntent);
+        // if (str.equalsIgnoreCase("MainActivity")) {
+        Log.e("Start from Lock screen ", " 1: " + str);
+        Intent startLockscreenIntent = new Intent(mContext, MainActivity_LockscreenService.class);
+        startLockscreenIntent.putExtra("FROM", str);
+        mContext.startService(startLockscreenIntent);
 
-       /* } else if (str.equalsIgnoreCase("Vaping101")) {
-            Log.e("Start from Lock screen ", " 2: " + str);
-            Intent startLockscreenIntent = new Intent(mContext, MainActivity_LockscreenService.class);
-            startLockscreenIntent.putExtra("FROM", str);
-            mContext.startService(startLockscreenIntent);
-        }else if (str.equalsIgnoreCase("Products")) {
-            Log.e("Start from Lock screen ", " 2: " + str);
-            Intent startLockscreenIntent = new Intent(mContext, MainActivity_LockscreenService.class);
-            startLockscreenIntent.putExtra("FROM", str);
-            mContext.startService(startLockscreenIntent);
-        }else if(str.equalsIgnoreCase("SubProduct")){
-            Log.e("Start from Lock screen ", " 2: " + str);
-            Intent startLockscreenIntent = new Intent(mContext, MainActivity_LockscreenService.class);
-            startLockscreenIntent.putExtra("FROM", str);
-            mContext.startService(startLockscreenIntent);
-        }*/
 
     }
+
+    public void startLockscreenService(final String str,final String imageType, final String imageId) {
+        SharedPreferencesUtil.init(mContext);
+
+        Log.e("Start from Lock screen ", " 1: " + str);
+        Intent startLockscreenIntent = new Intent(mContext, MainActivity_LockscreenService.class);
+        startLockscreenIntent.putExtra("FROM", str);
+        startLockscreenIntent.putExtra("IMAGE_TYPE", imageType);
+        startLockscreenIntent.putExtra("IMAGE_ID", imageId);
+        mContext.startService(startLockscreenIntent);
+    }
+
     public void startLockscreenService(final int Position, final ArrayList<String> sub_product_id,
                                        final ArrayList<String> sub_product_image, final HashMap<String,
-            ArrayList<String>> product_detail,final String str) {
+            ArrayList<String>> product_detail, final String str) {
         SharedPreferencesUtil.init(mContext);
         Log.e("Start from Lock screen ", " Position : " + Position);
         Log.e("Start from Lock screen ", " sub_product_id : " + sub_product_id);
@@ -86,12 +89,13 @@ public class Lockscreen {
         intent.putExtra("SubProductDetail", product_detail);
         mContext.startService(intent);
     }
+
     public void startLockscreenService(final int Position, final ArrayList<String> sub_product_detail_id,
-                                       final ArrayList<String> sub_product_detail_image,final String str,final int POSITION,final ArrayList<String> SubProductId,
-                                       final ArrayList<String> SubProductImage,final HashMap<String, ArrayList<String>> SubProductDetail) {
+                                       final ArrayList<String> sub_product_detail_image, final String str, final int POSITION, final ArrayList<String> SubProductId,
+                                       final ArrayList<String> SubProductImage, final HashMap<String, ArrayList<String>> SubProductDetail) {
         SharedPreferencesUtil.init(mContext);
         Log.e("Start from Lock screen ", " : " + str);
-             Intent startLockscreenIntent = new Intent(mContext, MainActivity_LockscreenService.class);
+        Intent startLockscreenIntent = new Intent(mContext, MainActivity_LockscreenService.class);
         startLockscreenIntent.putExtra("FROM", str);
         startLockscreenIntent.putExtra("POSITION", Position);
         startLockscreenIntent.putStringArrayListExtra("SubProductDetailId", sub_product_detail_id);
@@ -105,9 +109,85 @@ public class Lockscreen {
     }
 
     public void stopLockscreenService() {
-        Intent stopLockscreenViewIntent = new Intent(mContext, MainActivity_LockscreenViewService.class);
-        mContext.stopService(stopLockscreenViewIntent);
-        Intent stopLockscreenIntent = new Intent(mContext, MainActivity_LockscreenService.class);
-        mContext.stopService(stopLockscreenIntent);
+        Log.e("stop service call","stop service call");
+        try {
+            Intent stopLockscreenViewIntent = new Intent(mContext, MainActivity_LockscreenViewService.class);
+            mContext.stopService(stopLockscreenViewIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, MainActivity_LockscreenService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, CompatibilityChart_LockscreenViewService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, Password_LockscreenViewService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, Products_LockscreenViewService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, PromotionActivity_LockscreenViewService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, SubProductDetail_LockScreenService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, SubProductDetail_LockScreenViewService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, SubProducts_LockscreenService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, SubProducts_LockscreenViewService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, Vaping101_LockscreenViewService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, SendtoEmail_LockscreenViewService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            Intent stopLockscreenIntent = new Intent(mContext, SendtoPhone_LockscreenViewService.class);
+            mContext.stopService(stopLockscreenIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
